@@ -1,12 +1,13 @@
 import React from 'react';
 import { View, Text, StyleSheet, TouchableOpacity, Image } from 'react-native'
 import { colorPalette } from '../assets/colors';
+import { url } from '../url'
 import { deleteImg, checked } from '../assets/images'
 
 const Task = ({ todo, todos, setTodos }) => {
 
     const deleteHandler = () => {
-        fetch('https://4ugzvhfkph.execute-api.eu-west-2.amazonaws.com/dev/todos/' + todo.id, {
+        fetch(url + todo.id, {
             method: 'DELETE',
             headers: {
                 'Accept': 'application/json',
@@ -18,7 +19,7 @@ const Task = ({ todo, todos, setTodos }) => {
     };
 
     const doneHandler = () => {
-        fetch('https://4ugzvhfkph.execute-api.eu-west-2.amazonaws.com/dev/todos/' + todo.id, {
+        fetch(url + todo.id, {
             method: 'PUT',
             headers: {
                 'Accept': 'application/json',

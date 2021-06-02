@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react';
 import { Image, Keyboard, KeyboardAvoidingView, Platform, StyleSheet, Text, TextInput, TouchableOpacity, TouchableWithoutFeedback, View } from 'react-native';
 import { colorPalette } from './assets/colors'
 import { clipboard } from './assets/images'
+import { url } from './url'
 import Task from './components/task'
 
 export default function App() {
@@ -11,7 +12,7 @@ export default function App() {
   const [todos, setTodos] = useState([]);
 
   useEffect(() => {
-    fetch('https://4ugzvhfkph.execute-api.eu-west-2.amazonaws.com/dev/todos')
+    fetch(url)
       .then((res) => res.json())
       .then((json) => setTodos(json.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())))
       .catch((error) => console.error(error))
