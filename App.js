@@ -24,7 +24,7 @@ export default function App() {
 
   const submitTodoHandler = () => {
     if (inputText) {
-      fetch('https://4ugzvhfkph.execute-api.eu-west-2.amazonaws.com/dev/todos', {
+      fetch(url, {
         method: 'POST',
         headers: {
           'Accept': 'application/json',
@@ -33,7 +33,7 @@ export default function App() {
         body: JSON.stringify({ task: inputText })
       })
         .then(() => {
-          fetch('https://4ugzvhfkph.execute-api.eu-west-2.amazonaws.com/dev/todos')
+          fetch(url)
             .then((res) => res.json())
             .then((json) => setTodos(json.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())))
             .catch((error) => console.error(error))
