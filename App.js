@@ -11,11 +11,15 @@ export default function App() {
   const [inputText, setInputText] = useState('');
   const [todos, setTodos] = useState([]);
 
-  useEffect(() => {
+  const getTodoHandler = () => {
     fetch(url)
       .then((res) => res.json())
-      .then((json) => setTodos(json.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())))
+      .then((json) => setTodos(json.sort((a, b) => new Date(b.createdAt).getTime() - new Date(a.createdAt).getTime())))
       .catch((error) => console.error(error))
+  }
+
+  useEffect(() => {
+    getTodoHandler();
   }, [])
 
   const inputTextHandler = (text) => {
@@ -33,10 +37,7 @@ export default function App() {
         body: JSON.stringify({ task: inputText })
       })
         .then(() => {
-          fetch(url)
-            .then((res) => res.json())
-            .then((json) => setTodos(json.sort((a, b) => new Date(b.updatedAt).getTime() - new Date(a.updatedAt).getTime())))
-            .catch((error) => console.error(error))
+          getTodoHandler()
         })
         .catch((error) => console.error(error))
     }
